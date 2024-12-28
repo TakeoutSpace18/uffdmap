@@ -5,27 +5,18 @@
 #include "mmap_hack.h"
 #include "uffdmap.h"
 
-#include <stddef.h>
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <signal.h>
 #include <unistd.h>
-#include <fcntl.h>
 #include <stdio.h>
-#include <stdarg.h>
-
-#include <linux/userfaultfd.h>
 
 #include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/ioctl.h>
-#include <sys/resource.h>
 #include <sys/syscall.h>
-#include <sys/fcntl.h>
-#include <sys/uio.h>
+#include <sys/ioctl.h>
 
+#include <linux/userfaultfd.h>
 #include <liburing.h>
 
 #define OK 0

@@ -9,6 +9,8 @@
 
 #include "uffdmap.h"
 
+/* print file using uffdmap */
+
 static size_t fd_getsize(int fd)
 {
     struct stat stat;

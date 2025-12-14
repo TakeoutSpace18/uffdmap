@@ -2,7 +2,6 @@
 /* Use userfaultfd for demand-paging, highly inspired by article - 
  * https://xzpeter.org/userfaultfd-wp-latency-measurements/*/
 
-#include "mmap_hack.h"
 #include "uffdmap.h"
 
 #include <errno.h>
@@ -224,9 +223,9 @@ void *uffdmap(int fd)
     /* map size should be multiple of page size */
     d.map_size = (d.file_size + d.page_size - 1) / d.page_size * d.page_size;
 
-    /* usual mmap will not allocate writeable region
-     * that is bigger than ram */
-    d.map_addr = hacked_anon_rw_mmap(d.map_size);
+    /* use NORESERVE to allocate mem region bigger than available memory */
+    int flags = MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE;
+    d.map_addr = mmap(NULL, d.map_size, PROT_READ | PROT_WRITE, flags, -1, 0);
 
     int err = setup_uffd(d.map_addr, d.map_size, &d.uffd);
     if (err != OK) {

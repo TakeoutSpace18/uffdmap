@@ -5,7 +5,7 @@ project('uffdmap', 'c',
 uring = dependency('liburing')
 
 uffdmap_shared = shared_library('uffdmap',
-   ['uffdmap.c', 'mmap_hack.c'],
+   ['uffdmap.c'],
    dependencies: [uring]
 )
 
